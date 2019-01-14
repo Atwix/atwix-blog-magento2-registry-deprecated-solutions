@@ -1,0 +1,22 @@
+{
+  "name": "atwix/registry-alternative",
+  "description": "Another Atwix Blog module: this one show how to use data providers and services instead of Magento Registry",
+  "require": {
+    "php": "7.0.2|7.0.4|~7.0.6|~7.1.0",
+    "magento/module-store": "100.2.*"
+  },
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Atwix\\RegistryAlternative\\": ""
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<?php
+/**
+ * @author Atwix Team
+ * @copyright Copyright (c) 2018 Atwix (https://www.atwix.com/)
+ * @package Atwix_RegistryAlternative
+ */
+
+/** @var Magento\Framework\View\Element\Template $block */
+
+/** @var Atwix\RegistryAlternative\ViewModel\BackToCategoryViewModel $viewModel */
+$viewModel = $block->getData('backToCategoryVieModel');
+$viewModel->getCategoryUrl();
+
+if (!$viewModel->getCategoryUrl()) {
+    return ;
+}
+?>
+
+<div class="back-to-category">
+    <a href="<?php echo $viewModel->getCategoryUrl() ?>"><?php echo __(sprintf("Back to %s", $viewModel->getCategoryName())) ?></a>
+</div>

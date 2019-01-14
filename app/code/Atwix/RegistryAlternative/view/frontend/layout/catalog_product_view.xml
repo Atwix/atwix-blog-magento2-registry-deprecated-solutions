@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Atwix Team
+ * @copyright Copyright (c) 2018 Atwix (https://www.atwix.com/)
+ * @package Atwix_RegistryAlternative
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="product.back.to.category" as="to.category"
+                   template="Atwix_RegistryAlternative::product/back_to_category.phtml"
+                   before="-">
+                <arguments>
+                    <argument name="backToCategoryVieModel" xsi:type="object">Atwix\RegistryAlternative\ViewModel\BackToCategoryViewModel</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
