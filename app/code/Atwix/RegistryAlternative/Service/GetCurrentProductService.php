@@ -11,7 +11,7 @@ namespace Atwix\RegistryAlternative\Service;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Catalog\Model\Session as CatalogSession;
+use Magento\Catalog\Model\SessionFactory as CatalogSessionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
@@ -34,9 +34,9 @@ class GetCurrentProductService
     private $productId;
 
     /**
-     * @var CatalogSession
+     * @var CatalogSessionFactory
      */
-    private $catalogSession;
+    private $catalogSessionFactory;
 
     /**
      * @var ProductRepositoryInterface
@@ -44,14 +44,14 @@ class GetCurrentProductService
     private $productRepository;
 
     /**
-     * @param CatalogSession $catalogSession
+     * @param CatalogSessionFactory      $catalogSessionFactory
      * @param ProductRepositoryInterface $productRepository
      */
     public function __construct(
-        CatalogSession $catalogSession,
+        CatalogSessionFactory $catalogSessionFactory,
         ProductRepositoryInterface $productRepository
     ) {
-        $this->catalogSession = $catalogSession;
+        $this->catalogSessionFactory = $catalogSessionFactory;
         $this->productRepository = $productRepository;
     }
 
@@ -61,7 +61,8 @@ class GetCurrentProductService
     public function getProductId(): ?int
     {
         if (!$this->productId) {
-            $productId = $this->catalogSession->getData('last_viewed_product_id');
+            $catalogSessionFactory = $this->catalogSessionFactory->create();
+            $productId = $catalogSessionFactory->getData('last_viewed_product_id');
             $this->productId = $productId ? (int)$productId : null;
         }
 
