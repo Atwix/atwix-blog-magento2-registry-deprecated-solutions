@@ -10,7 +10,7 @@ namespace Atwix\RegistryAlternative\Service;
 
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
-use Magento\Catalog\Model\Session as CatalogSession;
+use Magento\Catalog\Model\SessionFactory as CatalogSessionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
@@ -33,9 +33,9 @@ class GetCurrentCategoryService
     private $categoryId;
 
     /**
-     * @var CatalogSession
+     * @var CatalogSessionFactory
      */
-    private $catalogSession;
+    private $catalogSessionfactory;
 
     /**
      * @var CategoryRepositoryInterface
@@ -43,21 +43,22 @@ class GetCurrentCategoryService
     private $categoryRepository;
 
     /**
-     * @param CatalogSession $catalogSession
+     * @param CatalogSessionFactory       $catalogSessionFactory
      * @param CategoryRepositoryInterface $categoryRepository
      */
     public function __construct(
-        CatalogSession $catalogSession,
+        CatalogSessionFactory $catalogSessionFactory,
         CategoryRepositoryInterface $categoryRepository
     ) {
-        $this->catalogSession = $catalogSession;
+        $this->catalogSessionfactory = $catalogSessionFactory;
         $this->categoryRepository = $categoryRepository;
     }
 
     public function getCategoryId()
     {
         if (!$this->categoryId) {
-            $currentCategoryId = $this->catalogSession->getData('last_viewed_category_id');
+            $catalogSessionFactory = $this->catalogSessionfactory->create();
+            $currentCategoryId = $catalogSessionFactory->getData('last_viewed_category_id');
 
             if ($currentCategoryId) {
                 $this->categoryId =  (int)$currentCategoryId;
